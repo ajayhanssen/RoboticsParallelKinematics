@@ -1,2 +1,0 @@
-# RoboticsParallelKinematics
-Bruchprojekt #3
