@@ -139,7 +139,7 @@ hold off
 
 exportgraphics(gcf,"../Report/cus_imgs/joint_trapz.pdf",ContentType="vector")
 
-%% xyz of robot
+% xyz of robot
 figure
 plot(t, x_MB, t, y_MB, t, z_MB, 'LineWidth', lwidth)
 grid on; hold on
@@ -153,3 +153,128 @@ xlim([0 t_sim(end)])
 hold off
 
 exportgraphics(gcf,"../Report/cus_imgs/joint_trapz_xyz.pdf",ContentType="vector")
+
+%% task space trapz plots
+
+outvar = out.task_trapz;
+t = outvar.Time;
+t = t(t<t_sim_ts(end));
+
+x_trapz = outvar.Data(t<t_sim_ts(end),1);
+y_trapz = outvar.Data(t<t_sim_ts(end),2);
+z_trapz = outvar.Data(t<t_sim_ts(end),3);
+
+xd_trapz = outvar.Data(t<t_sim_ts(end),4);
+yd_trapz = outvar.Data(t<t_sim_ts(end),5);
+zd_trapz = outvar.Data(t<t_sim_ts(end),6);
+
+xdd_trapz = outvar.Data(t<t_sim_ts(end),7);
+ydd_trapz = outvar.Data(t<t_sim_ts(end),8);
+zdd_trapz = outvar.Data(t<t_sim_ts(end),9);
+
+figure
+f = tiledlayout(3,1);
+f.TileSpacing = 'compact';
+
+% trapz trajectory
+nexttile
+plot(t, x_trapz, t, y_trapz, t, z_trapz, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim_ts, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+legend(["$x$", "$y$", "$z$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1636 0.7530 0.0548, 0.1355])
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('end-eff. pos. in m', 'Interpreter', 'latex', 'FontSize', fsize)
+xlim([0 t_sim_ts(end)])
+hold off
+
+nexttile
+plot(t, xd_trapz, t, yd_trapz, t, zd_trapz, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim_ts, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+legend(["$\dot{x}$", "$\dot{y}$", "$\dot{z}$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1628 0.4474 0.0558, 0.1355])
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('end-eff. vel. in $\mathrm{m\,s}^{-1}$', 'Interpreter', 'latex', 'FontSize', fsize)
+xlim([0 t_sim_ts(end)])
+hold off
+
+nexttile
+plot(t, xdd_trapz, t, ydd_trapz, t, zdd_trapz, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim_ts, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+legend(["$\ddot{x}$", "$\ddot{y}$", "$\ddot{z}$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1614 0.1466 0.0569, 0.1355])
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('end-eff. acc. in $\mathrm{m\,s}^{-2}$', 'Interpreter', 'latex', 'FontSize', fsize)
+xlim([0 t_sim_ts(end)])
+hold off
+
+exportgraphics(gcf,"../Report/cus_imgs/task_trapz.pdf",ContentType="vector")
+
+%% joint vel, acc jspace vs tspace
+% jspace data
+outvar = out.joint_trapz;
+t_js = outvar.Time;
+t_js = t(t<t_sim(end));
+
+v1_js = outvar.Data(t_js<t_sim(end),4);
+v2_js = outvar.Data(t_js<t_sim(end),5);
+v3_js = outvar.Data(t_js<t_sim(end),6);
+
+a1_js = outvar.Data(t_js<t_sim(end),7);
+a2_js = outvar.Data(t_js<t_sim(end),8);
+a3_js = outvar.Data(t_js<t_sim(end),9);
+
+% tspace data
+outvar = out.task_trapz;
+t_ts = outvar.Time;
+t_ts = t(t<t_sim_ts(end));
+
+v1_ts = outvar.Data(t_ts<t_sim_ts(end),13);
+v2_ts = outvar.Data(t_ts<t_sim_ts(end),14);
+v3_ts = outvar.Data(t_ts<t_sim_ts(end),15);
+
+a1_ts = outvar.Data(t_ts<t_sim_ts(end),16);
+a2_ts = outvar.Data(t_ts<t_sim_ts(end),17);
+a3_ts = outvar.Data(t_ts<t_sim_ts(end),18);
+
+f = tiledlayout(2,2);
+f.TileSpacing = 'compact';
+
+nexttile
+plot(t_js, v1_js, t_js, v2_js, t_js, v3_js, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+legend(["$v_\mathrm{1}$", "$v_\mathrm{2}$", "$v_\mathrm{3}$"], "FontSize", 20, "Interpreter", "latex")
+ylabel('joint vel. in $\mathrm{m\,s}^{-1}$', 'Interpreter', 'latex', 'FontSize', fsize)
+xlim([0 t_sim(end)])
+title("Joint Space", 'Interpreter', 'latex', 'FontSize', fsize)
+hold off
+
+nexttile
+plot(t_ts, v1_ts, t_ts, v2_ts, t_ts, v3_ts, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim_ts, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+legend(["$v_\mathrm{1}$", "$v_\mathrm{2}$", "$v_\mathrm{3}$"], "FontSize", 20, "Interpreter", "latex")
+xlim([0 t_sim_ts(end)])
+title("Task Space", 'Interpreter', 'latex', 'FontSize', fsize)
+hold off
+
+nexttile
+plot(t_js, a1_js, t_js, a2_js, t_js, a3_js, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+legend(["$a_\mathrm{1}$", "$a_\mathrm{2}$", "$a_\mathrm{3}$"], "FontSize", 20, "Interpreter", "latex")
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('joint acc. in $\mathrm{m\,s}^{-2}$', 'Interpreter', 'latex', 'FontSize', fsize)
+xlim([0 t_sim(end)])
+hold off
+
+nexttile
+plot(t_ts, a1_ts, t_ts, a2_ts, t_ts, a3_ts, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim_ts, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+legend(["$a_\mathrm{1}$", "$a_\mathrm{2}$", "$a_\mathrm{3}$"], "FontSize", 20, "Interpreter", "latex")
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+xlim([0 t_sim_ts(end)])
+hold off
+
+exportgraphics(gcf,"../Report/cus_imgs/joint_vs_task.pdf",ContentType="vector")

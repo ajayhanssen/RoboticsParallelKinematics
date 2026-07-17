@@ -10,6 +10,7 @@ j_max = 5e-3;
 
 points = [0.0, 0.0, 0.4; 0.1,0.1,0.4; -0.1,-0.1,0.4; 0.1,-0.1, 0.4; 0.0, 0.0, 0.4];
 
+% joint space
 joints = zeros(size(points));
 for i = 1:size(points,1)
     [s1, s2, s3] = inverse_kinematics(points(i,1), points(i,2), points(i,3), rb, rm, l);

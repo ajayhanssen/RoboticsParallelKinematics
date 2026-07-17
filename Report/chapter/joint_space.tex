@@ -2,7 +2,7 @@
 
 \chapter{Joint Space Motion}
 
-In this section, the process of oding joint space motions with the robot is documented. First, three waypoints are chosen inside of the workspace of the robot. They can be seen in table \ref{tab:jspace_waypoints}.
+In this section, the process of driving joint space motions with the robot is documented. First, three waypoints are chosen inside of the workspace of the robot. They can be seen in table \ref{tab:jspace_waypoints}.
 
 \begin{table}[H]
 \centering
@@ -35,3 +35,5 @@ Figure \ref{fig:jspace_trapz_xyz} shows the position of the end-effector of the 
 	\caption{Generated trajectory, including position, velocity and acceleration profiles}
 	\label{fig:jspace_trapz_traj}
 \end{figure}
+
+The maximum velocity should not exceed $0.05\,\si{\meter\per\second}$, while the acceleration should be capped at $0.1\,\si{\meter\per\square\second}$. It is apparent, that none of the velocity or acceleration constraints are violated.
