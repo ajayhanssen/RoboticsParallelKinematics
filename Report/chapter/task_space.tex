@@ -1,8 +1,11 @@
 % !TeX root = ../Main-Report.tex
 
 \chapter{Task Space Motion}
+This section document the implementation of movements in task space. 
 
-This section document the implementation of movements in task space. The same waypoints from the joint space motion have been used, which are visible in table \ref{tab:jspace_waypoints}. The maximum velocity of the end-effector was set to be $0.04\,\si{\meter\per\second}$, the maximum acceleration $0.07\,\si{\meter\per\square\second}$. The motion of the end-effector can be viewed in figure \ref{fig:tspace_trapz_traj}.
+\section{Trapezoidal trajectory in task space}
+
+The same waypoints from the joint space motion have been used, which are visible in table \ref{tab:jspace_waypoints}. The maximum velocity of the end-effector was set to be $0.04\,\si{\meter\per\second}$, the maximum acceleration $0.07\,\si{\meter\per\square\second}$. The motion of the end-effector can be viewed in figure \ref{fig:tspace_trapz_traj}.
 
 \begin{figure}[H]
 	\centering
@@ -11,7 +14,11 @@ This section document the implementation of movements in task space. The same wa
 	\label{fig:tspace_trapz_traj}
 \end{figure}
 
-As expected, the end-effector moves in a straight line from point to point. The acceleration and velocity constraints are fulfilled. However, compared to the joint space motion, the task space motion took more time to execute within the constraints. A comparison of the joint velocities and accelerations for both can be viewed in figure \ref{fig:jspace_vs_tspace}.
+As expected, the end-effector moves in a straight line from point to point. The acceleration and velocity constraints are fulfilled.
+
+\section{Comparison joint and task space}
+
+However, compared to the joint space motion, the task space motion took more time to execute within the constraints. A comparison of the joint velocities and accelerations for both can be viewed in figure \ref{fig:jspace_vs_tspace}.
 
 \begin{figure}[H]
 	\centering
@@ -20,4 +27,11 @@ As expected, the end-effector moves in a straight line from point to point. The 
 	\label{fig:jspace_vs_tspace}
 \end{figure}
 
-It is apparent that the joint velocities and accelerations in task space are much smaller than in joint space. This is the cause of the motion taking significantly longer.
+It is apparent that the joint velocities and accelerations in task space (right column) are much smaller than in joint space (left column). This is the cause of the motion taking significantly longer. The difference in the path that the end-effector takes in both motion modes can be viewed in figure \ref{fig:jspace_vs_tspace_motion}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\linewidth]{cus_imgs/joint_vs_task_motion.pdf}
+	\caption{End-effector position in joint and task space}
+	\label{fig:jspace_vs_tspace_motion}
+\end{figure}

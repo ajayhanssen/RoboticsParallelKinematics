@@ -32,7 +32,7 @@ for k = 1:num_segments
     q_end   = joints(k+1, :);
     delta_q = q_end - q_start;
 
-    % calc time required for each joint independently
+    % calc time required for each joint
     T_j = zeros(1, 3);
     ta_j = zeros(1, 3);
 
@@ -42,7 +42,7 @@ for k = 1:num_segments
             continue;
         end
 
-        % trapezoidal or triangular?
+        % trapezoidal or triangular
         if D >= (v_max^2 / a_max)
             % trapezoidal
             ta = v_max / a_max;

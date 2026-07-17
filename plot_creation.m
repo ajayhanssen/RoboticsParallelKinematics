@@ -236,6 +236,7 @@ a1_ts = outvar.Data(t_ts<t_sim_ts(end),16);
 a2_ts = outvar.Data(t_ts<t_sim_ts(end),17);
 a3_ts = outvar.Data(t_ts<t_sim_ts(end),18);
 
+figure
 f = tiledlayout(2,2);
 f.TileSpacing = 'compact';
 
@@ -278,3 +279,15 @@ xlim([0 t_sim_ts(end)])
 hold off
 
 exportgraphics(gcf,"../Report/cus_imgs/joint_vs_task.pdf",ContentType="vector")
+
+%%
+figure
+plot(x_MB, y_MB, x_trapz, y_trapz, 'LineWidth', lwidth)
+grid on
+legend(["joint space", "task space"], "FontSize", 20, "Interpreter", "latex", "Location","northwest")
+xlabel('x in m', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('y in m', 'Interpreter', 'latex', 'FontSize', fsize)
+xlim([min(x_MB)-0.025 max(x_MB)+0.025])
+ylim([min(y_MB)-0.025 max(y_MB)+0.025])
+
+exportgraphics(gcf,"../Report/cus_imgs/joint_vs_task_motion.pdf",ContentType="vector")
