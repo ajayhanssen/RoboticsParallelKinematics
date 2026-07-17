@@ -1,0 +1,155 @@
+fsize = 20;
+lwidth = 2;
+
+%% forward kinematics plot
+outvar = out.fw_error;
+t = outvar.Time;
+
+error = outvar.Data(:,1);
+
+x_MB = outvar.Data(:,2);
+y_MB = outvar.Data(:,3);
+z_MB = outvar.Data(:,4);
+
+x_FK = outvar.Data(:,5);
+y_FK = outvar.Data(:,6);
+z_FK = outvar.Data(:,7);
+
+% plot
+f = tiledlayout(2,2);
+f.TileSpacing = 'compact';
+
+nexttile(1)
+plot(t, x_MB, t, y_MB, t, z_MB, 'LineWidth', lwidth)
+grid on
+legend("$x_\mathrm{MB}$", "$y_\mathrm{MB}$", "$z_\mathrm{MB}$", 'Interpreter', 'latex', 'Location', 'west', ...
+    'FontSize', fsize)
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('position MB in m', 'Interpreter', 'latex', 'FontSize', fsize)
+
+nexttile(3)
+plot(t, x_FK, t, y_FK, t, z_FK, 'LineWidth', lwidth)
+grid on
+legend("$x_\mathrm{FK}$", "$y_\mathrm{FK}$", "$z_\mathrm{FK}$", 'Interpreter', 'latex', 'Location', 'west', ...
+    'FontSize', fsize)
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('position FK in m', 'Interpreter', 'latex', 'FontSize', fsize)
+
+nexttile(2, [2,1])
+plot(t, error, 'LineWidth', lwidth)
+grid on
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('error in m', 'Interpreter', 'latex', 'FontSize', fsize)
+
+%% inverse kinematics plot
+outvar = out.ik_error;
+t = outvar.Time;
+
+error = outvar.Data(:,1);
+
+s1_IN = outvar.Data(:,2);
+s2_IN = outvar.Data(:,3);
+s3_IN = outvar.Data(:,4);
+
+s1_IK = outvar.Data(:,5);
+s2_IK = outvar.Data(:,6);
+s3_IK = outvar.Data(:,7);
+
+% plot
+f = tiledlayout(2,2);
+f.TileSpacing = 'compact';
+
+nexttile(1)
+plot(t, s1_IN, t, s2_IN, t, s3_IN, 'LineWidth', lwidth)
+grid on
+legend("$s_\mathrm{1,IN}$", "$s_\mathrm{2,IN}$", "$s_\mathrm{3,IN}$", 'Interpreter', 'latex', 'Location', 'northwest', ...
+    'FontSize', fsize)
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('joint pos. input in m', 'Interpreter', 'latex', 'FontSize', fsize)
+
+nexttile(3)
+plot(t, s1_IK, t, s2_IK, t, s3_IK, 'LineWidth', lwidth)
+grid on
+legend("$s_\mathrm{1,IK}$", "$s_\mathrm{2,IK}$", "$s_\mathrm{3,IK}$", 'Interpreter', 'latex', 'Location', 'northwest', ...
+    'FontSize', fsize)
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('joint pos. IK in m', 'Interpreter', 'latex', 'FontSize', fsize)
+
+nexttile(2, [2,1])
+plot(t, error, 'LineWidth', lwidth)
+grid on
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('error in m', 'Interpreter', 'latex', 'FontSize', fsize)
+
+%% joint space trapz plots
+outvar = out.joint_trapz;
+t = outvar.Time;
+t = t(t<t_sim(end));
+
+s1_trapz = outvar.Data(t<t_sim(end),1);
+s2_trapz = outvar.Data(t<t_sim(end),2);
+s3_trapz = outvar.Data(t<t_sim(end),3);
+
+v1_trapz = outvar.Data(t<t_sim(end),4);
+v2_trapz = outvar.Data(t<t_sim(end),5);
+v3_trapz = outvar.Data(t<t_sim(end),6);
+
+a1_trapz = outvar.Data(t<t_sim(end),7);
+a2_trapz = outvar.Data(t<t_sim(end),8);
+a3_trapz = outvar.Data(t<t_sim(end),9);
+
+x_MB = outvar.Data(t<t_sim(end),10);
+y_MB = outvar.Data(t<t_sim(end),11);
+z_MB = outvar.Data(t<t_sim(end),12);
+
+figure
+f = tiledlayout(3,1);
+f.TileSpacing = 'compact';
+
+% trapz trajectory
+nexttile
+plot(t, s1_trapz, t, s2_trapz, t, s3_trapz, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+legend(["$s_\mathrm{1}$", "$s_\mathrm{2}$", "$s_\mathrm{3}$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1636 0.7530 0.0548, 0.1355])
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('joint pos. in m', 'Interpreter', 'latex', 'FontSize', fsize)
+xlim([0 t_sim(end)])
+hold off
+
+nexttile
+plot(t, v1_trapz, t, v2_trapz, t, v3_trapz, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+legend(["$v_\mathrm{1}$", "$v_\mathrm{2}$", "$v_\mathrm{3}$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1628 0.4474 0.0558, 0.1355])
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('joint vel. in $\mathrm{m\,s}^{-1}$', 'Interpreter', 'latex', 'FontSize', fsize)
+xlim([0 t_sim(end)])
+hold off
+
+nexttile
+plot(t, a1_trapz, t, a2_trapz, t, a3_trapz, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+legend(["$a_\mathrm{1}$", "$a_\mathrm{2}$", "$a_\mathrm{3}$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1614 0.1466 0.0569, 0.1355])
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('joint acc. in $\mathrm{m\,s}^{-2}$', 'Interpreter', 'latex', 'FontSize', fsize)
+xlim([0 t_sim(end)])
+hold off
+
+exportgraphics(gcf,"../Report/cus_imgs/joint_trapz.pdf",ContentType="vector")
+
+%% xyz of robot
+figure
+plot(t, x_MB, t, y_MB, t, z_MB, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('position MB in m', 'Interpreter', 'latex', 'FontSize', fsize)
+legend("$x_\mathrm{MB}$", "$y_\mathrm{MB}$", "$z_\mathrm{MB}$", 'Interpreter', 'latex', 'Location', 'west', ...
+    'FontSize', fsize)
+
+xlim([0 t_sim(end)])
+hold off
+
+exportgraphics(gcf,"../Report/cus_imgs/joint_trapz_xyz.pdf",ContentType="vector")
