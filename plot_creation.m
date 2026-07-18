@@ -84,23 +84,23 @@ ylabel('error in m', 'Interpreter', 'latex', 'FontSize', fsize)
 %% joint space trapz plots
 outvar = out.joint_trapz;
 t = outvar.Time;
-t = t(t<t_sim(end));
+t = t(t<t_sim_js(end));
 
-s1_trapz = outvar.Data(t<t_sim(end),1);
-s2_trapz = outvar.Data(t<t_sim(end),2);
-s3_trapz = outvar.Data(t<t_sim(end),3);
+s1_trapz = outvar.Data(t<t_sim_js(end),1);
+s2_trapz = outvar.Data(t<t_sim_js(end),2);
+s3_trapz = outvar.Data(t<t_sim_js(end),3);
 
-v1_trapz = outvar.Data(t<t_sim(end),4);
-v2_trapz = outvar.Data(t<t_sim(end),5);
-v3_trapz = outvar.Data(t<t_sim(end),6);
+v1_trapz = outvar.Data(t<t_sim_js(end),4);
+v2_trapz = outvar.Data(t<t_sim_js(end),5);
+v3_trapz = outvar.Data(t<t_sim_js(end),6);
 
-a1_trapz = outvar.Data(t<t_sim(end),7);
-a2_trapz = outvar.Data(t<t_sim(end),8);
-a3_trapz = outvar.Data(t<t_sim(end),9);
+a1_trapz = outvar.Data(t<t_sim_js(end),7);
+a2_trapz = outvar.Data(t<t_sim_js(end),8);
+a3_trapz = outvar.Data(t<t_sim_js(end),9);
 
-x_MB = outvar.Data(t<t_sim(end),10);
-y_MB = outvar.Data(t<t_sim(end),11);
-z_MB = outvar.Data(t<t_sim(end),12);
+x_MB = outvar.Data(t<t_sim_js(end),10);
+y_MB = outvar.Data(t<t_sim_js(end),11);
+z_MB = outvar.Data(t<t_sim_js(end),12);
 
 figure
 f = tiledlayout(3,1);
@@ -110,31 +110,31 @@ f.TileSpacing = 'compact';
 nexttile
 plot(t, s1_trapz, t, s2_trapz, t, s3_trapz, 'LineWidth', lwidth)
 grid on; hold on
-xline(t_sim, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+xline(t_sim_js, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
 legend(["$s_\mathrm{1}$", "$s_\mathrm{2}$", "$s_\mathrm{3}$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1636 0.7530 0.0548, 0.1355])
 xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
 ylabel('joint pos. in m', 'Interpreter', 'latex', 'FontSize', fsize)
-xlim([0 t_sim(end)])
+xlim([0 t_sim_js(end)])
 hold off
 
 nexttile
 plot(t, v1_trapz, t, v2_trapz, t, v3_trapz, 'LineWidth', lwidth)
 grid on; hold on
-xline(t_sim, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+xline(t_sim_js, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
 legend(["$v_\mathrm{1}$", "$v_\mathrm{2}$", "$v_\mathrm{3}$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1628 0.4474 0.0558, 0.1355])
 xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
 ylabel('joint vel. in $\mathrm{m\,s}^{-1}$', 'Interpreter', 'latex', 'FontSize', fsize)
-xlim([0 t_sim(end)])
+xlim([0 t_sim_js(end)])
 hold off
 
 nexttile
 plot(t, a1_trapz, t, a2_trapz, t, a3_trapz, 'LineWidth', lwidth)
 grid on; hold on
-xline(t_sim, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+xline(t_sim_js, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
 legend(["$a_\mathrm{1}$", "$a_\mathrm{2}$", "$a_\mathrm{3}$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1614 0.1466 0.0569, 0.1355])
 xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
 ylabel('joint acc. in $\mathrm{m\,s}^{-2}$', 'Interpreter', 'latex', 'FontSize', fsize)
-xlim([0 t_sim(end)])
+xlim([0 t_sim_js(end)])
 hold off
 
 exportgraphics(gcf,"../Report/cus_imgs/joint_trapz.pdf",ContentType="vector")
@@ -143,16 +143,16 @@ exportgraphics(gcf,"../Report/cus_imgs/joint_trapz.pdf",ContentType="vector")
 figure
 plot(t, x_MB, t, y_MB, t, z_MB, 'LineWidth', lwidth)
 grid on; hold on
-xline(t_sim, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+xline(t_sim_js, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
 xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
 ylabel('position MB in m', 'Interpreter', 'latex', 'FontSize', fsize)
 legend("$x_\mathrm{MB}$", "$y_\mathrm{MB}$", "$z_\mathrm{MB}$", 'Interpreter', 'latex', 'Location', 'west', ...
     'FontSize', fsize)
 
-xlim([0 t_sim(end)])
+xlim([0 t_sim_js(end)])
 hold off
 
-exportgraphics(gcf,"../Report/cus_imgs/joint_trapz_xyz.pdf",ContentType="vector")
+%exportgraphics(gcf,"../Report/cus_imgs/joint_trapz_xyz.pdf",ContentType="vector")
 
 %% task space trapz plots
 
@@ -181,7 +181,7 @@ nexttile
 plot(t, x_trapz, t, y_trapz, t, z_trapz, 'LineWidth', lwidth)
 grid on; hold on
 xline(t_sim_ts, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
-legend(["$x$", "$y$", "$z$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1636 0.7530 0.0548, 0.1355])
+legend(["$x$", "$y$", "$z$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1436 0.7530 0.0548, 0.1355])
 xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
 ylabel('end-eff. pos. in m', 'Interpreter', 'latex', 'FontSize', fsize)
 xlim([0 t_sim_ts(end)])
@@ -191,7 +191,7 @@ nexttile
 plot(t, xd_trapz, t, yd_trapz, t, zd_trapz, 'LineWidth', lwidth)
 grid on; hold on
 xline(t_sim_ts, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
-legend(["$\dot{x}$", "$\dot{y}$", "$\dot{z}$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1628 0.4474 0.0558, 0.1355])
+legend(["$\dot{x}$", "$\dot{y}$", "$\dot{z}$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1428 0.4474 0.0558, 0.1355])
 xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
 ylabel('end-eff. vel. in $\mathrm{m\,s}^{-1}$', 'Interpreter', 'latex', 'FontSize', fsize)
 xlim([0 t_sim_ts(end)])
@@ -201,7 +201,7 @@ nexttile
 plot(t, xdd_trapz, t, ydd_trapz, t, zdd_trapz, 'LineWidth', lwidth)
 grid on; hold on
 xline(t_sim_ts, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
-legend(["$\ddot{x}$", "$\ddot{y}$", "$\ddot{z}$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1614 0.1466 0.0569, 0.1355])
+legend(["$\ddot{x}$", "$\ddot{y}$", "$\ddot{z}$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1414 0.1466 0.0569, 0.1355])
 xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
 ylabel('end-eff. acc. in $\mathrm{m\,s}^{-2}$', 'Interpreter', 'latex', 'FontSize', fsize)
 xlim([0 t_sim_ts(end)])
@@ -213,20 +213,20 @@ exportgraphics(gcf,"../Report/cus_imgs/task_trapz.pdf",ContentType="vector")
 % jspace data
 outvar = out.joint_trapz;
 t_js = outvar.Time;
-t_js = t(t<t_sim(end));
+t_js = t_js(t<t_sim_js(end));
 
-v1_js = outvar.Data(t_js<t_sim(end),4);
-v2_js = outvar.Data(t_js<t_sim(end),5);
-v3_js = outvar.Data(t_js<t_sim(end),6);
+v1_js = outvar.Data(t_js<t_sim_js(end),4);
+v2_js = outvar.Data(t_js<t_sim_js(end),5);
+v3_js = outvar.Data(t_js<t_sim_js(end),6);
 
-a1_js = outvar.Data(t_js<t_sim(end),7);
-a2_js = outvar.Data(t_js<t_sim(end),8);
-a3_js = outvar.Data(t_js<t_sim(end),9);
+a1_js = outvar.Data(t_js<t_sim_js(end),7);
+a2_js = outvar.Data(t_js<t_sim_js(end),8);
+a3_js = outvar.Data(t_js<t_sim_js(end),9);
 
 % tspace data
 outvar = out.task_trapz;
 t_ts = outvar.Time;
-t_ts = t(t<t_sim_ts(end));
+t_ts = t_ts(t<t_sim_ts(end));
 
 v1_ts = outvar.Data(t_ts<t_sim_ts(end),13);
 v2_ts = outvar.Data(t_ts<t_sim_ts(end),14);
@@ -243,10 +243,10 @@ f.TileSpacing = 'compact';
 nexttile
 plot(t_js, v1_js, t_js, v2_js, t_js, v3_js, 'LineWidth', lwidth)
 grid on; hold on
-xline(t_sim, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+xline(t_sim_js, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
 legend(["$v_\mathrm{1}$", "$v_\mathrm{2}$", "$v_\mathrm{3}$"], "FontSize", 20, "Interpreter", "latex")
 ylabel('joint vel. in $\mathrm{m\,s}^{-1}$', 'Interpreter', 'latex', 'FontSize', fsize)
-xlim([0 t_sim(end)])
+xlim([0 t_sim_js(end)])
 title("Joint Space", 'Interpreter', 'latex', 'FontSize', fsize)
 hold off
 
@@ -262,11 +262,11 @@ hold off
 nexttile
 plot(t_js, a1_js, t_js, a2_js, t_js, a3_js, 'LineWidth', lwidth)
 grid on; hold on
-xline(t_sim, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+xline(t_sim_js, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
 legend(["$a_\mathrm{1}$", "$a_\mathrm{2}$", "$a_\mathrm{3}$"], "FontSize", 20, "Interpreter", "latex")
 xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
 ylabel('joint acc. in $\mathrm{m\,s}^{-2}$', 'Interpreter', 'latex', 'FontSize', fsize)
-xlim([0 t_sim(end)])
+xlim([0 t_sim_js(end)])
 hold off
 
 nexttile

@@ -9,12 +9,12 @@ In this section, the process of driving joint space motions with the robot is do
 \caption{Chosen waypoints for trajectory planning}
 \label{tab:jspace_waypoints}
 \begin{tabular}{llll}
-	Waypoint & $x$    & $y$    & $z$   \\ \hline
-	$1$      & $0.0$  & $0.0$  & $0.4$ \\
-	$2$      & $0.1$  & $0.1$  & $0.4$ \\
-	$3$      & $-0.1$ & $-0.1$ & $0.4$ \\
-	$4$      & $0.1$  & $-0.1$ & $0.4$ \\
-	$5$      & $0.0$  & $0.0$  & $0.0$
+	Waypoint & $x$    & $y$    & $z$    \\ \hline
+	$1$      & $0.0$  & $0.0$  & $0.4$  \\
+	$2$      & $0.0$  & $0.1$  & $0.45$ \\
+	$3$      & $0.1$  & $-0.1$ & $0.42$ \\
+	$4$      & $-0.1$ & $0.0$  & $0.45$ \\
+	$5$      & $0.0$  & $0.0$  & $0.4$ 
 \end{tabular}
 \end{table}
 
@@ -23,7 +23,7 @@ Using the acceleration and velocity constraints that were given in the task, the
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\linewidth]{cus_imgs/joint_trapz_xyz.pdf}
-	\caption{$x$, $y$ and $z$ position of the end-effector for the trapezoidal velocity profile}
+	\caption{$x$, $y$ and $z$ position of the end-effector for the trapezoidal velocity profile in joint space}
 	\label{fig:jspace_trapz_xyz}
 \end{figure}
 
@@ -32,7 +32,7 @@ Figure \ref{fig:jspace_trapz_xyz} shows the position of the end-effector of the 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\linewidth]{cus_imgs/joint_trapz.pdf}
-	\caption{Generated trajectory, including position, velocity and acceleration profiles}
+	\caption{Generated trajectory, including position, velocity and acceleration profiles in joint space}
 	\label{fig:jspace_trapz_traj}
 \end{figure}
 

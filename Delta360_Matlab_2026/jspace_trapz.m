@@ -8,7 +8,7 @@ v_max = 50e-3;
 a_max = 100e-3;
 j_max = 5e-3;
 
-points = [0.0, 0.0, 0.4; 0.1,0.1,0.4; -0.1,-0.1,0.4; 0.1,-0.1, 0.4; 0.0, 0.0, 0.4];
+points = [0.0, 0.0, 0.4; 0.0,0.1,0.45; 0.1,-0.1,0.42; -0.1,0.0, 0.45; 0.0, 0.0, 0.4];
 
 % joint space
 joints = zeros(size(points));
@@ -22,8 +22,8 @@ num_points = size(joints, 1);
 num_segments = num_points - 1;
 
 % init arrays
-t_sim = 0; 
-v_sim = [0, 0, 0]; 
+t_sim_js = 0;
+v_sim_js = [0, 0, 0];
 
 current_time = 0;
 
@@ -65,7 +65,7 @@ for k = 1:num_segments
 
     % 3. Calculate synchronized velocity for this segment
     % Formula: D = v_sync * ta_max + v_sync * tc_max
-    v_sync = delta_q / (ta_max + tc_max); 
+    v_sync = delta_q / (ta_max + tc_max);
 
     % 4. Generate corner points for interpolation
     % We use corner points because Simulink will linearly interpolate between them
@@ -80,8 +80,8 @@ for k = 1:num_segments
     end
 
     % add to traj array
-    t_sim = [t_sim; t_seg(2:end)];
-    v_sim = [v_sim; v_seg(2:end, :)];
+    t_sim_js = [t_sim_js; t_seg(2:end)];
+    v_sim_js = [v_sim_js; v_seg(2:end, :)];
 
     current_time = current_time + T_max;
 end
