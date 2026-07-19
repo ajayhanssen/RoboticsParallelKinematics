@@ -75,7 +75,7 @@ for k = 1:num_segments
         qd_seg(:, j) = a1 + 2*a2*t_vec + 3*a3*t_vec.^2;
     end
     
-    % Append to total trajectory
+    % append to total trajectory
     if k == 1
         t_sim_js_con = [t_sim_js_con; t_vec];
         q_sim_js_con = [q_sim_js_con; q_seg];

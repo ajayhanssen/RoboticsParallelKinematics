@@ -291,3 +291,63 @@ xlim([min(x_MB)-0.025 max(x_MB)+0.025])
 ylim([min(y_MB)-0.025 max(y_MB)+0.025])
 
 exportgraphics(gcf,"../Report/cus_imgs/joint_vs_task_motion.pdf",ContentType="vector")
+
+%% continuous traj
+
+outvar = out.joint_con;
+t = outvar.Time;
+t = t(t<t_sim_js_con(end));
+
+s1_jcon = outvar.Data(t<t_sim_js_con(end),1);
+s2_jcon = outvar.Data(t<t_sim_js_con(end),2);
+s3_jcon = outvar.Data(t<t_sim_js_con(end),3);
+
+v1_jcon = outvar.Data(t<t_sim_js_con(end),4);
+v2_jcon = outvar.Data(t<t_sim_js_con(end),5);
+v3_jcon = outvar.Data(t<t_sim_js_con(end),6);
+
+x_MB_con = outvar.Data(t<t_sim_js_con(end),7);
+y_MB_con = outvar.Data(t<t_sim_js_con(end),8);
+z_MB_con = outvar.Data(t<t_sim_js_con(end),9);
+
+figure
+f = tiledlayout(2,2);
+f.TileSpacing = 'compact';
+
+% trapz trajectory
+nexttile(2)
+plot(t, s1_jcon, t, s2_jcon, t, s3_jcon, 'LineWidth', lwidth)
+grid on; hold on
+legend(["$s_\mathrm{1}$", "$s_\mathrm{2}$", "$s_\mathrm{3}$"], "FontSize", 20, "Interpreter", "latex")
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('joint pos. in m', 'Interpreter', 'latex', 'FontSize', fsize)
+xlim([0 t_sim_js_con(end)])
+hold off
+title("Without extra via-points", 'Interpreter', 'latex', 'FontSize', fsize)
+
+nexttile(4)
+plot(t, v1_jcon, t, v2_jcon, t, v3_jcon, 'LineWidth', lwidth)
+grid on; hold on
+legend(["$v_\mathrm{1}$", "$v_\mathrm{2}$", "$v_\mathrm{3}$"], "FontSize", 20, "Interpreter", "latex")
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('joint vel. in $\mathrm{m\,s}^{-1}$', 'Interpreter', 'latex', 'FontSize', fsize)
+xlim([0 t_sim_js_con(end)])
+hold off
+title("With extra via-points", 'Interpreter', 'latex', 'FontSize', fsize)
+
+exportgraphics(gcf,"../Report/cus_imgs/joint_con.pdf",ContentType="vector")
+
+%% straight line
+figure
+plot(x_MB_con, y_MB_con, 'LineWidth', lwidth)
+hold on
+plot(points(:,1), points(:,2), 'LineWidth', lwidth)
+grid on
+legend(["no extra via-pts.", "extra via-pts.", "straight line"], "FontSize", 20, "Interpreter", "latex", "Location","northwest")
+xlabel('x in m', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('y in m', 'Interpreter', 'latex', 'FontSize', fsize)
+xlim([min(x_MB)-0.025 max(x_MB)+0.025])
+ylim([min(y_MB)-0.025 max(y_MB)+0.025])
+hold off
+
+exportgraphics(gcf,"../Report/cus_imgs/con_viapoints.pdf",ContentType="vector")
