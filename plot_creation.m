@@ -137,7 +137,7 @@ ylabel('joint acc. in $\mathrm{m\,s}^{-2}$', 'Interpreter', 'latex', 'FontSize',
 xlim([0 t_sim_js(end)])
 hold off
 
-exportgraphics(gcf,"../Report/cus_imgs/joint_trapz.pdf",ContentType="vector")
+%exportgraphics(gcf,"../Report/cus_imgs/joint_trapz.pdf",ContentType="vector")
 
 % xyz of robot
 figure
@@ -283,12 +283,15 @@ exportgraphics(gcf,"../Report/cus_imgs/joint_vs_task.pdf",ContentType="vector")
 %%
 figure
 plot(x_MB, y_MB, x_trapz, y_trapz, 'LineWidth', lwidth)
+hold on
+plot(points(:,1), points(:,2), 'Color', [0,0,0], 'Marker','o', 'MarkerSize', 10)
 grid on
 legend(["joint space", "task space"], "FontSize", 20, "Interpreter", "latex", "Location","northwest")
 xlabel('x in m', 'Interpreter', 'latex', 'FontSize', fsize)
 ylabel('y in m', 'Interpreter', 'latex', 'FontSize', fsize)
 xlim([min(x_MB)-0.025 max(x_MB)+0.025])
 ylim([min(y_MB)-0.025 max(y_MB)+0.025])
+hold off
 
 exportgraphics(gcf,"../Report/cus_imgs/joint_vs_task_motion.pdf",ContentType="vector")
 
@@ -335,13 +338,14 @@ xlim([0 t_sim_js_con(end)])
 hold off
 title("With extra via-points", 'Interpreter', 'latex', 'FontSize', fsize)
 
-exportgraphics(gcf,"../Report/cus_imgs/joint_con.pdf",ContentType="vector")
+%exportgraphics(gcf,"../Report/cus_imgs/joint_con.pdf",ContentType="vector")
 
 %% straight line
 figure
 plot(x_MB_con, y_MB_con, 'LineWidth', lwidth)
 hold on
-plot(points(:,1), points(:,2), 'LineWidth', lwidth)
+plot(points(:,1), points(:,2), 'LineWidth', lwidth, 'Marker', 'o', 'MarkerSize', 10)
+%plot(points(:,1), points(:,2), 'LineWidth', lwidth, 'Marker', 'o', 'MarkerSize', 10, 'Color', [0,0,0])
 grid on
 legend(["no extra via-pts.", "extra via-pts.", "straight line"], "FontSize", 20, "Interpreter", "latex", "Location","northwest")
 xlabel('x in m', 'Interpreter', 'latex', 'FontSize', fsize)

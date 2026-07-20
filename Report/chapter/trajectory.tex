@@ -1,7 +1,7 @@
 % !TeX root = ../Main-Report.tex
 
 \chapter{Continuous Trajectory}
-The enxt task was to implement a continuous trajectory between the chosen task space points from before(table \ref{tab:jspace_waypoints}), but without any full-stops at the via position. To achieve this, a cubic spline interpolation has been implemented. The joint position and velocites can be viewed in figure \ref{fig}
+The next task was to implement a continuous trajectory between the chosen task space points from before(table \ref{tab:jspace_waypoints}), but without any full-stops at the via position. To achieve this, a cubic spline interpolation has been implemented.  The implementation is done in the function \textit{jspace\_continuous.m}, which needs to be run before starting the simulation. The joint position and velocites can be viewed in figure \ref{fig:jspace_con}.
 
 \begin{figure}[H]
 	\centering
@@ -10,10 +10,14 @@ The enxt task was to implement a continuous trajectory between the chosen task s
 	\label{fig:jspace_con}
 \end{figure}
 
+The trajectory was run twice, once with the three waypoints from before and once using to additional via-points right in the middle of waypoint $1$ and $2$ as well as between $2$ and $3$. It is apparent, that there are some abrupt changes in velocity, which is especially visible in the graphs containing extra via-points. To view the path, which the end-effector follows, both situations are plotted in figure \ref{fig:with_without_vias}.
+
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\linewidth]{cus_imgs/con_viapoints.pdf}
-	\caption{End-effector $x$ and$y$ position with and without extra via-points}
+	\caption{End-effector $x$ and $y$ position with and without extra via-points}
 	\label{fig:with_without_vias}
 \end{figure}
+
+Without via-points, the end-effector deviates from the straight line quite heavily, even more than for the trapezoidal trajectory in joint space. By choosing two extra via-points in the middle, these deviations can be reduced quite significantly, however.
