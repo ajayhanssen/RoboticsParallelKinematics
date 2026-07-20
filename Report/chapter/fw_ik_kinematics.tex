@@ -16,14 +16,21 @@ To be able to verify if the equations have been implemented correctly, the eucli
 	\label{fig:fwkinverification}
 \end{figure}
 
-The left column shows that for the joint trajectory that has been given to the system, the position of the end-effector in simulation and the forward kinematics function yield the same result. The plot in the right column shows an error of magnitudes of $10^{-4}\,\si{\meter}$.
+The euclidean error is calculated as described in equation \eqref{eq:euclidean_error}.
+
+\begin{equation}
+	e = \sqrt{(x_1-x_2)^2 + (y_1-y_2)^2 + (z_1-z_2)^2}
+	\label{eq:euclidean_error}
+\end{equation}
+
+The left column in figure \ref{fig:fwkinverification} shows that for the joint trajectory that has been given to the system, the position of the end-effector in simulation and the forward kinematics function yield the same result. The plot in the right column shows an error of magnitudes of $10^{-4}\,\si{\meter}$.
 
 \section{Inverse Kinematics}
 Calculating inverse kinematics is the process of determining the joint positions necessary for the end-effector to be at a given position. The equations for inverse kinematics for the robot are also taken from \cite{delta_kin}. A function called \textit{inverse\_kinematics.m} has been implemented to do the conversion. To verify the results, the end-effector output of the  Multibody-model has been fed into the inverse kinematics function, whose output has been compared to the input into the Simulation. Like above, the inputs are three ramps with different inclinations. The results can be seen in figure \ref{fig:inkinverification}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\linewidth]{cus_imgs/in_kin_verification2}
-	\caption[Plot of verification process for inverse kinematics]{Plot of Verification process for inverse kinematics. Left column: input joint position into Multibody model (IN) and output of inverse kinematics function (IK); right column: euclidean error of the two}
+	\caption[Plot of verification process for inverse kinematics]{Plot of verification process for inverse kinematics. Left column: input joint position into Multibody model (IN) and output of inverse kinematics function (IK); right column: euclidean error of the two}
 	\label{fig:inkinverification}
 \end{figure}
 

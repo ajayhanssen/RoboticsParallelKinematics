@@ -15,7 +15,7 @@ P3 = [-0.05, -0.05, 0.4];
 P1_2 = (P1 + P2)/2;
 P2_3 = (P2 + P3)/2;
 points = [P1; P2; P3];
-%points = [P1; P1_2; P2; P2_3; P3];
+points = [P1; P1_2; P2; P2_3; P3];
 
 % joint space
 joints = zeros(size(points));
