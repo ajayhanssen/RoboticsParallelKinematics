@@ -35,18 +35,3 @@ It is apparent that the joint velocities and accelerations in task space (right 
 	\caption{End-effector position in joint and task space}
 	\label{fig:jspace_vs_tspace_motion}
 \end{figure}
-
-How all the motion types that have been discussed in this report perform in terms of duration time and the amount they deviate from the straight line is depicted in table \ref{tab:motion_comparison}.
-
-\begin{table}[H]
-	\centering
-	\caption{Comparison of motion types in terms of duration and deviation from straight line}
-	\label{tab:motion_comparison}
-	\begin{tabular}{lcc}
-	Motion type                 & duration in \si{\second} & deviation in \si{\meter} \\ \hline
-	joint space trapezoidal     & 5.425                    &                          \\
-	task space trapezoidal      & 9.4874                   &                          \\
-	continuous w.o. via points  & 5.4211                   &                          \\
-	continuous with. via points & 6.4217                   &                         
-\end{tabular}
-\end{table}

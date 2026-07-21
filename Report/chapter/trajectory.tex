@@ -21,3 +21,20 @@ The trajectory was run twice, once with the three waypoints from before and once
 \end{figure}
 
 Without via-points, the end-effector deviates from the straight line quite heavily, even more than for the trapezoidal trajectory in joint space. By choosing two extra via-points in the middle, these deviations can be reduced quite significantly, however.
+
+How all the motion types that have been discussed in this report perform in terms of duration time and the amount they deviate from the straight line is depicted in table \ref{tab:motion_comparison}.
+
+\begin{table}[H]
+	\centering
+	\caption{Comparison of motion types in terms of duration and deviation from straight line}
+	\label{tab:motion_comparison}
+	\begin{tabular}{lcc}
+		Motion type                 & duration in \si{\second} & deviation in \si{\milli\meter} \\ \hline
+		joint space trapezoidal     & 5.425                    & 6.48                           \\
+		task space trapezoidal      & 9.4874                   & 0.06786                        \\
+		continuous w.o. via points  & 5.4211                   & 12.06                          \\
+		continuous with. via points & 6.4217                   & 2.319                         
+	\end{tabular}
+	\end{table}
+	
+	It is apparent, that the task space motion takes the largest amount of time for the movement, but follows the straight line almost perfectly. The standard joint space motion with a full stop at the via points forms a middle ground between speed and deviation from the straight line. The fastest but most inaccurate one is the continuous trajectory without any extra via points. When adding these extra points, the movment takes slightly more time, but yields the second most accurate line following properties after the task space motion.
