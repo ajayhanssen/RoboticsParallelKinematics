@@ -26,7 +26,7 @@ The euclidean error is calculated as described in equation \eqref{eq:euclidean_e
 The left column in figure \ref{fig:fwkinverification} shows that for the joint trajectory that has been given to the system, the position of the end-effector in simulation and the forward kinematics function yield the same result. The plot in the right column shows an error of magnitudes of $10^{-4}\,\si{\meter}$.
 
 \section{Inverse Kinematics}
-Calculating inverse kinematics is the process of determining the joint positions necessary for the end-effector to be at a given position. The equations for inverse kinematics for the robot are also taken from \cite{delta_kin}. A function called \textit{inverse\_kinematics.m} has been implemented to do the conversion. To verify the results, the end-effector output of the  Multibody-model has been fed into the inverse kinematics function, whose output has been compared to the input into the Simulation. Like above, the inputs are three ramps with different inclinations. The results can be seen in figure \ref{fig:inkinverification}.
+Calculating inverse kinematics is the process of determining the joint positions necessary for the end-effector to be at a given position in task space. The equations for inverse kinematics for the robot are also taken from \cite{delta_kin}. A function called \textit{inverse\_kinematics.m} has been implemented to do the conversion. To verify the results, the end-effector output of the  Multibody-model has been fed into the inverse kinematics function, whose output has been compared to the input into the Simulation. Like above, the inputs are three ramps with different inclinations. The results can be seen in figure \ref{fig:inkinverification}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\linewidth]{cus_imgs/in_kin_verification2}
@@ -34,7 +34,7 @@ Calculating inverse kinematics is the process of determining the joint positions
 	\label{fig:inkinverification}
 \end{figure}
 
-It is apparent, that the inverse kinematics (IK) function yields the same results as the joint positions that were input into the simulation. The error, however, has a magnitude of $10^{-3}\,\si{\meter}$, which is larger than for forward kinematics.
+It is apparent that the inverse kinematics (IK) function yields the same results as the joint positions that were input into the simulation. The error, however, has a magnitude of $10^{-3}\,\si{\meter}$, which is larger than for forward kinematics.
 
 \begin{figure}[H]
 	\centering

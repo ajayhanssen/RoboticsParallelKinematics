@@ -207,7 +207,7 @@ ylabel('end-eff. acc. in $\mathrm{m\,s}^{-2}$', 'Interpreter', 'latex', 'FontSiz
 xlim([0 t_sim_ts(end)])
 hold off
 
-exportgraphics(gcf,"../Report/cus_imgs/task_trapz.pdf",ContentType="vector")
+%exportgraphics(gcf,"../Report/cus_imgs/task_trapz.pdf",ContentType="vector")
 
 %% joint vel, acc jspace vs tspace
 % jspace data
@@ -282,18 +282,20 @@ exportgraphics(gcf,"../Report/cus_imgs/joint_vs_task.pdf",ContentType="vector")
 
 %%
 figure
-plot(x_MB, y_MB, x_trapz, y_trapz, 'LineWidth', lwidth)
+plot3(x_MB, y_MB, z_MB, 'LineWidth', lwidth)
 hold on
-plot(points(:,1), points(:,2), 'Color', [0,0,0], 'Marker','o', 'MarkerSize', 10)
+plot3(x_trapz, y_trapz, z_trapz, 'LineWidth', lwidth)
+plot3(points(:,1), points(:,2), points(:,3), 'Color', [0,0,0], 'Marker','o', 'MarkerSize', 10)
 grid on
 legend(["joint space", "task space"], "FontSize", 20, "Interpreter", "latex", "Location","northwest")
 xlabel('x in m', 'Interpreter', 'latex', 'FontSize', fsize)
 ylabel('y in m', 'Interpreter', 'latex', 'FontSize', fsize)
+zlabel('z in m', 'Interpreter', 'latex', 'FontSize', fsize)
 xlim([min(x_MB)-0.025 max(x_MB)+0.025])
 ylim([min(y_MB)-0.025 max(y_MB)+0.025])
 hold off
 
-exportgraphics(gcf,"../Report/cus_imgs/joint_vs_task_motion.pdf",ContentType="vector")
+%exportgraphics(gcf,"../Report/cus_imgs/joint_vs_task_motion_3d.pdf",ContentType="vector")
 
 %% continuous traj
 
