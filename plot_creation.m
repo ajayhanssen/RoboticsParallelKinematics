@@ -153,6 +153,7 @@ xlim([0 t_sim_js(end)])
 hold off
 
 %exportgraphics(gcf,"../Report/cus_imgs/joint_trapz_xyz.pdf",ContentType="vector")
+%writematrix([t, s1_trapz,s2_trapz, s3_trapz], '../timeseries/jspace_trapz.csv', 'Delimiter', ',')
 
 %% task space trapz plots
 
@@ -228,6 +229,10 @@ outvar = out.task_trapz;
 t_ts = outvar.Time;
 t_ts = t_ts(t<t_sim_ts(end));
 
+s1_ts = outvar.Data(t_ts<t_sim_ts(end),10);
+s2_ts = outvar.Data(t_ts<t_sim_ts(end),11);
+s3_ts = outvar.Data(t_ts<t_sim_ts(end),12);
+
 v1_ts = outvar.Data(t_ts<t_sim_ts(end),13);
 v2_ts = outvar.Data(t_ts<t_sim_ts(end),14);
 v3_ts = outvar.Data(t_ts<t_sim_ts(end),15);
@@ -235,6 +240,7 @@ v3_ts = outvar.Data(t_ts<t_sim_ts(end),15);
 a1_ts = outvar.Data(t_ts<t_sim_ts(end),16);
 a2_ts = outvar.Data(t_ts<t_sim_ts(end),17);
 a3_ts = outvar.Data(t_ts<t_sim_ts(end),18);
+%writematrix([t, s1_ts,s2_ts, s3_ts], '../timeseries/tspace_trapz.csv', 'Delimiter', ',')
 
 figure
 f = tiledlayout(2,2);
@@ -344,16 +350,17 @@ title("With extra via-points", 'Interpreter', 'latex', 'FontSize', fsize)
 
 %% straight line
 figure
-plot(x_MB_con, y_MB_con, 'LineWidth', lwidth)
+plot3(x_MB_con, y_MB_con, z_MB_con, 'LineWidth', lwidth)
 hold on
-plot(points(:,1), points(:,2), 'LineWidth', lwidth, 'Marker', 'o', 'MarkerSize', 10)
+plot3(points(:,1), points(:,2), points(:,3), 'LineWidth', lwidth, 'Marker', 'o', 'MarkerSize', 10)
 %plot(points(:,1), points(:,2), 'LineWidth', lwidth, 'Marker', 'o', 'MarkerSize', 10, 'Color', [0,0,0])
 grid on
 legend(["no extra via-pts.", "extra via-pts.", "straight line"], "FontSize", 20, "Interpreter", "latex", "Location","northwest")
 xlabel('x in m', 'Interpreter', 'latex', 'FontSize', fsize)
 ylabel('y in m', 'Interpreter', 'latex', 'FontSize', fsize)
+zlabel('z in m', 'Interpreter', 'latex', 'FontSize', fsize)
 xlim([min(x_MB)-0.025 max(x_MB)+0.025])
 ylim([min(y_MB)-0.025 max(y_MB)+0.025])
 hold off
 
-exportgraphics(gcf,"../Report/cus_imgs/con_viapoints.pdf",ContentType="vector")
+exportgraphics(gcf,"../Report/cus_imgs/con_viapoints_3d.pdf",ContentType="vector")
