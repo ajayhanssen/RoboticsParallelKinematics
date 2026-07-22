@@ -280,6 +280,76 @@ hold off
 
 %exportgraphics(gcf,"../Report/cus_imgs/task_trapz.pdf",ContentType="vector")
 
+%% task space double s
+
+outvar = out.task_ds;
+t_sim_ts_ds = tspace_traj_ds.Time;
+t = outvar.Time;
+t = t(t<t_sim_ts_ds(end));
+
+x_ds = outvar.Data(t<t_sim_ts_ds(end),1);
+y_ds = outvar.Data(t<t_sim_ts_ds(end),2);
+z_ds = outvar.Data(t<t_sim_ts_ds(end),3);
+
+xd_ds = outvar.Data(t<t_sim_ts_ds(end),4);
+yd_ds = outvar.Data(t<t_sim_ts_ds(end),5);
+zd_ds = outvar.Data(t<t_sim_ts_ds(end),6);
+
+xdd_ds = outvar.Data(t<t_sim_ts_ds(end),7);
+ydd_ds = outvar.Data(t<t_sim_ts_ds(end),8);
+zdd_ds = outvar.Data(t<t_sim_ts_ds(end),9);
+
+xddd_ds = outvar.Data(t<t_sim_ts_ds(end),10);
+yddd_ds = outvar.Data(t<t_sim_ts_ds(end),11);
+zddd_ds = outvar.Data(t<t_sim_ts_ds(end),12);
+
+figure
+f = tiledlayout(4,1);
+%f.TileSpacing = 'compact';
+
+% trapz trajectory
+nexttile
+plot(t, x_ds, t, y_ds, t, z_ds, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim_ts_ds, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+legend(["$x$", "$y$", "$z$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1930 0.7911 0.0558, 0.1355])
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('end-eff. pos. in m', 'Interpreter', 'latex', 'FontSize', 16)
+xlim([0 t_sim_ts_ds(end)])
+hold off
+
+nexttile
+plot(t, xd_ds, t, yd_ds, t, zd_ds, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim_ts_ds, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+legend(["$\dot{x}$", "$\dot{y}$", "$\dot{z}$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1930 0.5653 0.0558, 0.1355])
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('end-eff. vel. in $\mathrm{m\,s}^{-1}$', 'Interpreter', 'latex', 'FontSize', 16)
+xlim([0 t_sim_ts_ds(end)])
+hold off
+
+nexttile
+plot(t, xdd_ds, t, ydd_ds, t, zdd_ds, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim_ts_ds, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+legend(["$\ddot{x}$", "$\ddot{y}$", "$\ddot{z}$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1930 0.3349 0.0558, 0.1355])
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('end-eff. acc. in $\mathrm{m\,s}^{-2}$', 'Interpreter', 'latex', 'FontSize', 16)
+xlim([0 t_sim_ts_ds(end)])
+hold off
+
+nexttile
+plot(t, xddd_ds, t, yddd_ds, t, zddd_ds, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim_ts_ds, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+legend(["$\dddot{x}$", "$\dddot{y}$", "$\dddot{z}$"], "FontSize", 20, "Interpreter", "latex", "Location", "none", "Position", [0.1930 0.1085 0.0558, 0.1355])
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('end-eff. jerk in $\mathrm{m\,s}^{-3}$', 'Interpreter', 'latex', 'FontSize', 16)
+xlim([0 t_sim_ts_ds(end)])
+hold off
+
+exportgraphics(gcf,"../Report/cus_imgs/task_double_s.pdf",ContentType="vector")
+
 %% joint vel, acc jspace vs tspace
 % jspace data
 outvar = out.joint_trapz;

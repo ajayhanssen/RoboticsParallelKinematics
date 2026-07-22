@@ -23,7 +23,8 @@ points = [P1; P2; P3];
 [jspace_traj, joints] = jspace_trapz(points, v_max_j, a_max_j, l, rb, rm);
 [jspace_traj_ds, joints] = jspace_double_s(points, v_max_j, a_max_j, j_max_j, l, rb, rm);
 
-tspace_traj = tspace_trapz(points, v_max_t, a_max_t, l, rb, rm);
+tspace_traj = tspace_trapz(points, v_max_t, a_max_t);
+tspace_traj_ds = tspace_double_s(points, v_max_t, a_max_t, j_max_t);
 
 % continuous trajectories
 % extra via points

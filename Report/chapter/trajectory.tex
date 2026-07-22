@@ -10,32 +10,42 @@ The next task was to implement a continuous trajectory between the chosen task s
 	\label{fig:jspace_con}
 \end{figure}
 
-The trajectory was run twice, once with the three waypoints from before and once using to additional via-points right in the middle of waypoint $1$ and $2$ as well as between $2$ and $3$. It is apparent, that there are some abrupt changes in velocity, which is especially visible in the graphs containing extra via-points. To view the path, which the end-effector follows, both situations are plotted in figure \ref{fig:with_without_vias}.
+The trajectory was run twice, once with the three waypoints from before and once using to additional via-points right in the middle of waypoint $1$ and $2$ as well as between $2$ and $3$. It is apparent, that there are some abrupt changes in velocity, which is especially visible in the graphs containing extra via-points. The path which the end-effector follows in both situations is plotted in figure \ref{fig:with_without_vias}.
 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\linewidth]{cus_imgs/con_viapoints_3d.pdf}
-	\caption{End-effector $x$ and $y$ position with and without extra via-points}
+	\caption{End-effector $x$, $y$ and $z$ position with and without extra via-points}
 	\label{fig:with_without_vias}
 \end{figure}
 
 Without via-points, the end-effector deviates from the straight line quite heavily, even more than for the trapezoidal trajectory in joint space. By choosing two extra via-points in the middle, these deviations can be reduced quite significantly, however.
 
-How all the motion types that have been discussed in this report perform in terms of duration time and the amount they deviate from the straight line is depicted in table \ref{tab:motion_comparison}.
+How all the motion types that have been discussed in this report perform in terms of duration time and the amount they deviate from the straight line is depicted in table \ref{tab:motion_comparison}. The deviation from the straight line is calculated in the \textit{pathDeviation.m}-function block by looking for the nearest point on the straight line and calculating the distance to it. Then, the mean value using a Mean-block is calculated (part of the DSP-Systems Toolbox).
 
 \begin{table}[H]
 	\centering
 	\caption{Comparison of motion types in terms of duration and deviation from straight line}
 	\label{tab:motion_comparison}
 	\begin{tabular}{lcc}
-		Motion type                 & duration in \si{\second} & deviation in \si{\milli\meter} \\ \hline
+		Motion type                 & duration in \si{\second} & mean deviation in \si{\milli\meter} \\ \hline
 		joint space trapezoidal     & 5.425                    & 6.48                           \\
-		joint space double-s        & 5.465                    & 6.433                          \\
+		joint space double-S        & 5.465                    & 6.433                          \\
 		task space trapezoidal      & 9.4874                   & 0.06786                        \\
+		task space double-S         & 9.5154                   & 0.06786                        \\
 		continuous w.o. via points  & 5.4211                   & 12.06                          \\
 		continuous with. via points & 6.4217                   & 2.319                         
 	\end{tabular}
 	\end{table}
 	
 	It is apparent, that the task space motion takes the largest amount of time for the movement, but follows the straight line almost perfectly. The standard joint space motion with a full stop at the via points forms a middle ground between speed and deviation from the straight line. The fastest but most inaccurate one is the continuous trajectory without any extra via points. When adding these extra points, the movment takes slightly more time, but yields the second most accurate line following properties after the task space motion.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1.0\linewidth]{cus_imgs/CONTINUOUS_TRAJ_simulink.png}
+		\caption{Simulink layout for moving usiing continuous trajectories}
+		\label{fig:cont_traj_simulink}
+	\end{figure}
+	
+	Figure \ref{fig:cont_traj_simulink} shows the Simulink setup for moving the robot using the continuous trajectory.

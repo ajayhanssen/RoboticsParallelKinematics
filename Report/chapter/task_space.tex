@@ -16,14 +16,27 @@ The same waypoints from the joint space motion have been used, which are visible
 
 As expected, the end-effector moves in a straight line from point to point. The acceleration and velocity constraints are fulfilled.
 
+\section{Double-S trajectory in task space}
+Similar to the double-S velocity profile in task space, using a trapezoidal acceleration profile for task space trajectories make it possible to limit the jerk. In this case, the maximum jerk was set to $5\,\si{\meter\per\cubic\second}$.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\linewidth]{cus_imgs/task_double_s.pdf}
+	\caption{Double-S trajectory, including position, velocity, acceleration and jerk profiles in task space}
+	\label{fig:tspace_ds_traj}
+\end{figure}
+
+As the jerk limit is relatively high, the double-S shape of the velocity of the end-effector is barely visible, but it is still there.
+
+
 \section{Comparison joint and task space} \label{sec:comparison_jspace_tspace}
 
-However, compared to the joint space motion, the task space motion takes more time to execute within the constraints. A comparison of the joint velocities and accelerations for both can be viewed in figure \ref{fig:jspace_vs_tspace}.
+Compared to the joint space motion, the task space motion takes more time to execute within the constraints. A comparison of the joint velocities and accelerations for the trapezoidal velocity profiles for both can be viewed in figure \ref{fig:jspace_vs_tspace}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\linewidth]{cus_imgs/joint_vs_task.pdf}
-	\caption{Velocity and acceleration of the joints for joint and task space motion}
+	\caption{Velocity and acceleration of the joints for joint and task space motion (trapezoidal)}
 	\label{fig:jspace_vs_tspace}
 \end{figure}
 
@@ -31,7 +44,16 @@ It is apparent that the joint velocities and accelerations in task space (right 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1.0\linewidth]{cus_imgs/joint_vs_task_motion_3d.pdf}
+	\includegraphics[width=0.9\linewidth]{cus_imgs/joint_vs_task_motion_3d.pdf}
 	\caption{End-effector position in joint and task space}
 	\label{fig:jspace_vs_tspace_motion}
+\end{figure}
+
+The Simulink setup used to fullfill these tasks (and parts of the next) can be seen in figure \ref{fig:joint_task_simulink}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\linewidth]{cus_imgs/JSPACE_TSPACE_simulink.png}
+	\caption{Simulink layout for joint and task space trajectories}
+	\label{fig:joint_task_simulink}
 \end{figure}
