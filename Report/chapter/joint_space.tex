@@ -5,18 +5,20 @@
 In this section, the process of driving joint space motions with the robot is documented. First, three waypoints are chosen inside of the workspace of the robot. They can be seen in table \ref{tab:jspace_waypoints}.
 
 \begin{table}[H]
-\centering
-\caption{Chosen waypoints for trajectory planning}
-\label{tab:jspace_waypoints}
-\begin{tabular}{cccc}
-	Waypoint & $x$ in \si{\meter} & $y$ in \si{\meter} & $z$ in \si{\meter} \\ \hline
-	$1$      & $0.0$              & $0.1$              & $0.4$              \\
-	$2$      & $0.075$            & $-0.075$           & $0.45$             \\
-	$3$      & $-0.05$            & $-0.05$            & $0.4$             
-\end{tabular}
+	\centering
+	\caption{Chosen waypoints for trajectory planning}
+	\label{tab:jspace_waypoints}
+	\begin{tabular}{cccc}
+		Waypoint & $x$ in \si{\meter} & $y$ in \si{\meter} & $z$ in \si{\meter} \\ \hline
+		$1$      & $0.0$              & $0.1$              & $0.4$              \\
+		$2$      & $0.075$            & $-0.075$           & $0.45$             \\
+		$3$      & $-0.05$            & $-0.05$            & $0.4$             
+	\end{tabular}
 \end{table}
 
-Using the acceleration and velocity constraints that were given in the task, the synchronized velocity profile has been calculated in the file \textit{jspace\_trapz.m}. The outputs are time stamps and corresponding velocity values, which are then imported into Simulink using a "From Workspace" block and fed into an integrator to receive the needed position information. As the simulation uses the vectors from the workspace, the script \textit{jspace\_trapz.m} needs to be run before the simulation.
+\section{Trapezoidal velocity profile}
+
+The first trajectory type that has been implemented is the trapezoidal velocity profile trajectory. It is possible to limit velocity and acceleration, but not the jerk. Using the acceleration and velocity constraints that were given in the task, the synchronized velocity profile has been calculated in the file \textit{jspace\_trapz.m}. The outputs are time stamps and corresponding velocity values, which are then imported into Simulink using a "From Workspace" block and fed into an integrator to receive the needed position information. As the simulation uses the vectors from the workspace, the script \textit{initialize.m} needs to be run before the simulation.
 
 \begin{figure}[H]
 	\centering
@@ -30,8 +32,18 @@ Figure \ref{fig:jspace_trapz_xyz} shows the position of the end-effector of the 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\linewidth]{cus_imgs/joint_trapz.pdf}
-	\caption{Generated trajectory, including position, velocity and acceleration profiles in joint space}
+	\caption{Trapezoidal trajectory, including position, velocity and acceleration profiles in joint space}
 	\label{fig:jspace_trapz_traj}
 \end{figure}
 
 The maximum velocity should not exceed $0.05\,\si{\meter\per\second}$, while the acceleration should be capped at $0.1\,\si{\meter\per\square\second}$. It is apparent, that none of the velocity or acceleration constraints are violated.
+
+\section{Double-S velocity profile}
+The other type of joint space trajectory that has been implemented is the double-S velocity profile, which has the additional capability to also limit the jerk to $5\,\si{\meter\per\cubic\second}$ by using a trapezoidal acceleration profile. The calculation is implemented in the function \textit{jspace\_double\_s.m}. It is also necessary to run \textit{initialize.m} before starting the simulation.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\linewidth]{cus_imgs/joint_double_s.pdf}
+	\caption{Double-S trajectory, including position, velocity, acceleration and jerk profiles in joint space}
+	\label{fig:jspace_ds_traj}
+\end{figure}

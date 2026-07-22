@@ -1,17 +1,4 @@
-% robot params
-l = 400e-3;
-rb = 222.105421e-3;
-rm = 42e-3;
-
-% motion limits
-v_max = 40e-3;
-a_max = 70e-3;
-j_max = 5e-3;
-
-P1 = [0.0, 0.1, 0.4];
-P2 = [0.075, -0.075, 0.45];
-P3 = [-0.05, -0.05, 0.4];
-points = [P1; P2; P3];
+function tspace_traj = tspace_trapz(points, v_max, a_max, l, rb, rm)
 
 % number of segments
 num_points = size(points, 1);

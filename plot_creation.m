@@ -83,6 +83,7 @@ ylabel('error in m', 'Interpreter', 'latex', 'FontSize', fsize)
 
 %% joint space trapz plots
 outvar = out.joint_trapz;
+t_sim_js = jspace_traj.Time;
 t = outvar.Time;
 t = t(t<t_sim_js(end));
 
@@ -154,6 +155,75 @@ hold off
 
 %exportgraphics(gcf,"../Report/cus_imgs/joint_trapz_xyz.pdf",ContentType="vector")
 %writematrix([t, s1_trapz,s2_trapz, s3_trapz], '../timeseries/jspace_trapz.csv', 'Delimiter', ',')
+
+%% joint space double s
+outvar = out.joint_ds;
+t_sim_js_ds = jspace_traj_ds.Time;
+t = outvar.Time;
+t = t(t<t_sim_js_ds(end));
+
+s1_ds = outvar.Data(t<t_sim_js_ds(end),1);
+s2_ds = outvar.Data(t<t_sim_js_ds(end),2);
+s3_ds = outvar.Data(t<t_sim_js_ds(end),3);
+
+v1_ds = outvar.Data(t<t_sim_js_ds(end),4);
+v2_ds = outvar.Data(t<t_sim_js_ds(end),5);
+v3_ds = outvar.Data(t<t_sim_js_ds(end),6);
+
+a1_ds = outvar.Data(t<t_sim_js_ds(end),7);
+a2_ds = outvar.Data(t<t_sim_js_ds(end),8);
+a3_ds = outvar.Data(t<t_sim_js_ds(end),9);
+
+j1_ds = outvar.Data(t<t_sim_js_ds(end),10);
+j2_ds = outvar.Data(t<t_sim_js_ds(end),11);
+j3_ds = outvar.Data(t<t_sim_js_ds(end),12);
+
+figure
+f = tiledlayout(4,1);
+%f.TileSpacing = 'compact';
+
+% trapz trajectory
+nexttile
+plot(t, s1_ds, t, s2_ds, t, s3_ds, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim_js_ds, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+legend(["$s_\mathrm{1}$", "$s_\mathrm{2}$", "$s_\mathrm{3}$"], "FontSize", 20, "Interpreter", "latex", "Position", [0.7357 0.7934 0.0548, 0.1355])
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('joint pos. in m', 'Interpreter', 'latex', 'FontSize', 18)
+xlim([0 t_sim_js_ds(end)])
+hold off
+
+nexttile
+plot(t, v1_ds, t, v2_ds, t, v3_ds, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim_js_ds, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+legend(["$v_\mathrm{1}$", "$v_\mathrm{2}$", "$v_\mathrm{3}$"], "FontSize", 20, "Interpreter", "latex", "Position", [0.7357 0.5636 0.0548, 0.1355])
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('joint vel. in $\mathrm{m\,s}^{-1}$', 'Interpreter', 'latex', 'FontSize', 18)
+xlim([0 t_sim_js_ds(end)])
+hold off
+
+nexttile
+plot(t, a1_ds, t, a2_ds, t, a3_ds, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim_js_ds, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+legend(["$a_\mathrm{1}$", "$a_\mathrm{2}$", "$a_\mathrm{3}$"], "FontSize", 20, "Interpreter", "latex", "Position", [0.7357 0.3374 0.0548, 0.1355])
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('joint acc. in $\mathrm{m\,s}^{-2}$', 'Interpreter', 'latex', 'FontSize', 18)
+xlim([0 t_sim_js_ds(end)])
+hold off
+
+nexttile
+plot(t, j1_ds, t, j2_ds, t, j3_ds, 'LineWidth', lwidth)
+grid on; hold on
+xline(t_sim_js_ds, 'LineStyle', ':', 'LineWidth', lwidth, 'Color', [0.8, 0.8, 0.8])
+legend(["$j_\mathrm{1}$", "$j_\mathrm{2}$", "$j_\mathrm{3}$"], "FontSize", 20, "Interpreter", "latex", "Position", [0.7357 0.1077 0.0548, 0.1355])
+xlabel('time in s', 'Interpreter', 'latex', 'FontSize', fsize)
+ylabel('joint jerk in $\mathrm{m\,s}^{-3}$', 'Interpreter', 'latex', 'FontSize', 18)
+xlim([0 t_sim_js_ds(end)])
+hold off
+
+%exportgraphics(gcf,"../Report/cus_imgs/joint_double_s.pdf",ContentType="vector")
 
 %% task space trapz plots
 
