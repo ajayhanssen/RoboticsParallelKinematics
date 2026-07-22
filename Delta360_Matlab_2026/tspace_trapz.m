@@ -69,3 +69,5 @@ for k = 1:num_segments
 
     current_time = current_time + T;
 end
+
+tspace_traj = timeseries(v_cart_sim_ts, t_sim_ts);

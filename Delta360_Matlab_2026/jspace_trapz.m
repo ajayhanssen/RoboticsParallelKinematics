@@ -88,3 +88,5 @@ for k = 1:num_segments
 
     current_time = current_time + T_max;
 end
+
+jspace_traj = timeseries(v_sim_js, t_sim_js);

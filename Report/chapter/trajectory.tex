@@ -1,7 +1,7 @@
 % !TeX root = ../Main-Report.tex
 
 \chapter{Continuous Trajectory}
-The next task was to implement a continuous trajectory between the chosen task space points from before(table \ref{tab:jspace_waypoints}), but without any full-stops at the via position. To achieve this, a cubic spline interpolation has been implemented.  The implementation is done in the function \textit{jspace\_continuous.m}, which needs to be run before starting the simulation. The joint position and velocites can be viewed in figure \ref{fig:jspace_con}.
+The next task was to implement a continuous trajectory between the chosen task space points from before(table \ref{tab:jspace_waypoints}), but without any full-stops at the via position. To achieve this, a cubic spline interpolation has been implemented.  The implementation is done in the function \textit{jspace\_continuous.m}, which needs to be run before starting the simulation. Output of the script is a timeseries containing position values for the joints. The joint position and velocites can be viewed in figure \ref{fig:jspace_con}.
 
 \begin{figure}[H]
 	\centering

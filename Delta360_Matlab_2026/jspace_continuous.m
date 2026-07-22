@@ -101,3 +101,5 @@ for k = 1:num_segments
         qd_sim_js_con = [qd_sim_js_con; qd_seg(2:end, :)];
     end
 end
+
+jspace_traj_cnt = timeseries(q_sim_js_con, t_sim_js_con);

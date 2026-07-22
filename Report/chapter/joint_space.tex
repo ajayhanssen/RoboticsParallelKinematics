@@ -16,7 +16,7 @@ In this section, the process of driving joint space motions with the robot is do
 \end{tabular}
 \end{table}
 
-Using the acceleration and velocity constraints that were given in the task, the synchronized velocity profile has been calculated in the file \textit{jspace\_trapz.m}. The outputs are time stamps and corresponding velocity values, which are then input into a Repeating table block in Simulink and fed into an integrator to receive the needed position information. As the simulation uses the vectors from the workspace, the script \textit{jspace\_trapz.m} needs to be run before the simulation.
+Using the acceleration and velocity constraints that were given in the task, the synchronized velocity profile has been calculated in the file \textit{jspace\_trapz.m}. The outputs are time stamps and corresponding velocity values, which are then imported into Simulink using a "From Workspace" block and fed into an integrator to receive the needed position information. As the simulation uses the vectors from the workspace, the script \textit{jspace\_trapz.m} needs to be run before the simulation.
 
 \begin{figure}[H]
 	\centering
